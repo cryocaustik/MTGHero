@@ -31,7 +31,6 @@ class CardFinder:
         CardFinder.db_url = None
         CardFinder.card_name = None
         CardFinder.results = None
-        print('exiting')
 
     def find_card_local(self):
         name = CardFinder.card_name
@@ -64,4 +63,3 @@ class CardFinder:
 # c_name = 'angel of invention'
 # with CardFinder(c_name, 'online') as cf:
 #     print(cf)
-
