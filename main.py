@@ -22,8 +22,8 @@ if client.rtm_connect():
                     print(parsed)
                     client.rtm_send_message(message_channel, 'searching...')
 
-                    with CardFinder(card_name, 'online') as cf:
-                        card_name = cf.find_card_online(parsed[1:])
+                    with CardFinder(parsed[1:], 'online') as cf:
+                        card_name = cf
 
                     if len(card_name) > 0:
                         multiverse_id = card_name['multiverseid']
