@@ -1,35 +1,40 @@
-import time
 import json
 from urllib.request import  urlopen
 
 
 class CardFinder:
-    db_path = r'/home/user/AllSets.json'
-    db_url = r'https://mtgjson.com/json/AllSets.json'
+    db_path = None
+    db_url = None
     db_source = None
     card_name = None
-    results = {}
+    results = None
 
-    def __init__(self):
-        CardFinder.db_source = 'local'
+    def __init__(self, cardname, source):
+        CardFinder.db_path = r'/home/user/AllSets.json'
+        CardFinder.db_url = r'https://mtgjson.com/json/AllSets.json'
+        CardFinder.card_name = str(cardname)
+        CardFinder.results = {}
 
-    # def __enter__(self):
-    #     CardFinder.db_path = r'/home/cryo/Google Drive/Scripts and Solutions/Python/MTGhero_bot/AllSets.json'
-    #     CardFinder.db_url = r'https://mtgjson.com/json/AllSets.json'
-    #     CardFinder.db_source = None
-    #     CardFinder.card_name = None
-    #     CardFinder.results = {}
-    #     # return self.find_card_local()
-    #
-    # def __exit__(self, exc_type, exc_val, exc_tb):
-    #     CardFinder.card_name = None
-    #     CardFinder.db_source = None
-    #     CardFinder.results = None
-    #     CardFinder.db_path = None
-    #     CardFinder.db_path = None
+        if source in ['local', 'online']:
+            CardFinder.db_source = source
+        else:
+            CardFinder.db_source = 'online'
 
-    def find_card_local(self, name):
+    def __enter__(self):
+        if CardFinder.db_source == 'local':
+            return CardFinder.find_card_local(self)
+        elif CardFinder.db_source == 'online':
+            return CardFinder.find_card_online(self)
 
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        CardFinder.db_path = None
+        CardFinder.db_url = None
+        CardFinder.card_name = None
+        CardFinder.results = None
+        print('exiting')
+
+    def find_card_local(self):
+        name = CardFinder.card_name
         with open(CardFinder.db_path, 'r') as f:
             card_db = json.load(f)
             f.close()
@@ -42,8 +47,8 @@ class CardFinder:
 
         return CardFinder.results
 
-    def find_card_online(self, name):
-
+    def find_card_online(self):
+        name = CardFinder.card_name
         json_url = urlopen(CardFinder.db_url).read()
         card_db = json.loads(json_url.decode('utf-8'))
 
@@ -55,5 +60,8 @@ class CardFinder:
 
         return CardFinder.results
 
-# cf = CardFinder()
-# print(cf.find_card_local('angel of invention'))
+## for debugging
+# c_name = 'angel of invention'
+# with CardFinder(c_name, 'online') as cf:
+#     print(cf)
+
