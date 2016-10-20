@@ -4,7 +4,7 @@ from urllib.request import  urlopen
 
 
 class CardFinder:
-    db_path = r'/home/cryo/Google Drive/Scripts and Solutions/Python/MTGhero_bot/AllSets.json'
+    db_path = r'/home/user/AllSets.json'
     db_url = r'https://mtgjson.com/json/AllSets.json'
     db_source = None
     card_name = None
