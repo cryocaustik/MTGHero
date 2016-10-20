@@ -3,7 +3,7 @@ import time
 from slackclient import SlackClient
 from card_search import CardFinder
 
-os.environ["SLACK_BOT_TOKEN"] = r'xoxb-92549523108-EqY9MqEpQNSLUoX9EeUuUVkI'
+os.environ["SLACK_BOT_TOKEN"] = r'<bot token>'
 
 client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
 card_name = None
