@@ -1,11 +1,11 @@
-import os
 import time
+from tokens import GetTokens
 from slackclient import SlackClient
 from card_search import CardFinder
 
-os.environ["SLACK_BOT_TOKEN"] = r'<bot token>'
 
-client = SlackClient(os.environ.get('SLACK_BOT_TOKEN'))
+token = GetTokens().slack_bot()
+client = SlackClient(token)
 card_name = None
 
 
