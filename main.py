@@ -4,7 +4,7 @@ from slackclient import SlackClient
 from card_search import CardFinder
 
 
-token = GetTokens().slack_bot()
+token = GetTokens().slack_bot()  ## custom class to hide token
 client = SlackClient(token)
 card_name = None
 
